@@ -1,3 +1,5 @@
+'use client'
+
 import {
   HoverCard,
   Group,
@@ -17,6 +19,7 @@ import {
   rem,
   useMantineTheme,
   Title,
+  Image,
 } from '@mantine/core';
 // import { MantineLogo } from '@mantinex/mantine-logo';
 import { useDisclosure } from '@mantine/hooks';
@@ -30,6 +33,8 @@ import {
   IconChevronDown,
 } from '@tabler/icons-react';
 import classes from './Header.module.css';
+import NextImage from 'next/image';
+import icon from '../../../public/favicon.svg'
 
 const mockdata = [
   {
@@ -92,7 +97,7 @@ export function Header() {
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           {/* <MantineLogo size={30} /> */}
-          <Title order={5}>Care Coordinator</Title>
+          <Image component={NextImage} w={30} h={30} alt='app icon'  src={icon}/> 
 
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="#" className={classes.link}>

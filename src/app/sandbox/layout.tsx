@@ -1,4 +1,5 @@
 "use client";
+import { Navbar } from "@/components/Navbar/Navbar";
 import { Config } from "@/config";
 import { FetchFhirClient, FhirClient } from "@bonfhir/core/r4b";
 import { MantineRenderer } from "@bonfhir/mantine/r4b";
@@ -38,6 +39,7 @@ export default function SandboxLayout({ children }: PropsWithChildren) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <link rel="icon" href="/favicon.svg" sizes="any" />
         <ColorSchemeScript forceColorScheme="light" />
       </head>
       <body>
@@ -54,10 +56,10 @@ export default function SandboxLayout({ children }: PropsWithChildren) {
                   }
                 }}
               >
-                <AppShell>
-                  <AppShell.Main>{children}</AppShell.Main>
-                </AppShell>
-                <ReactQueryDevtools />
+                <>
+                {children}
+                </>
+                {/* <ReactQueryDevtools /> */}
               </FhirUIProvider>
             </WithAuth>
           </SessionProvider>

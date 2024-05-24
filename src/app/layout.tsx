@@ -37,6 +37,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <link rel="icon" href="/favicon.svg" sizes="any" />
+
         <ColorSchemeScript forceColorScheme="light" />
       </head>
       <body>
