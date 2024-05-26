@@ -36,6 +36,15 @@ export const arrivedAppointments: FhirSubscription<Appointment> = {
         console.log(body);
       })
       .catch((error) => console.log(error));
+
+      await fetch("http://localhost:3000/api", {
+      method: "GET"
+    })
+      .then((response) => response.text())
+      .then((body) => {
+        console.log(body);
+      })
+      .catch((error) => console.log(error));
     
     // Check if the appointment already has an encounter associated
     // const existingEncounters = await fhirClient.search("Encounter", (search) =>
