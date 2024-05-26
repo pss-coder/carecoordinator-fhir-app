@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { useFhirSearch } from "@bonfhir/query/r4b";
 import { FhirValue } from "@bonfhir/react/r4b";
 import {
+  Affix,
   AppShell,
   Burger,
   Container,
@@ -15,23 +16,41 @@ import {
   Stack,
   Text,
   Title,
+  Transition,
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { act, useState } from "react";
+import {  useEffect, useState } from "react";
 import classes from "./page.module.css";
 import { PatientGeneral } from "@/components/PatientGeneral/PatientGeneral";
 import PatientReportsTable from "@/components/PatientsTable/PatientsReportTable";
 import { PatientUpdateCard } from "@/components/PatientUpdateCard/PatientUpdateCard";
-
-const PRIMARY_COL_HEIGHT = rem(500);
+import io from 'socket.io-client';
 
 export default function Sandbox() {
+
+  const socket = io('http://localhost:3000');
+
   const [opened, { toggle }] = useDisclosure();
 
   const patientsSearchQuery = useFhirSearch("Patient");
 
   const [active, setActive] = useState("")
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+
+    socket.on('message2', (data) => {
+      console.log("Recieved from server ::", data)
+      setShowAlert(true);
+      // Execute any command
+    })
+
+    
+  }, [socket])
+  
+
 
   const patientLinks = patientsSearchQuery.data
     ?.searchMatch()
@@ -39,7 +58,7 @@ export default function Sandbox() {
       <a
         href="#"
         data-active={patient.id === active || undefined}
-        onClick={(event) =>{ event.preventDefault(); setActive(patient.id); console.log(patient.id)}}
+        onClick={(event) =>{ event.preventDefault(); setActive(patient.id); console.log(patient.id);}}
         key={patient.id}
         className={classes.patientLinks}
       >
@@ -57,8 +76,8 @@ export default function Sandbox() {
 
 
   return (
-    <AppShell
-      header={{ height: 50 }}
+     <AppShell
+      header={{ height: 80 }}
       navbar={{
         width: 320,
         breakpoint: "sm",
@@ -75,6 +94,21 @@ export default function Sandbox() {
       </AppShell.Navbar>
 
       <AppShell.Main>
+      <Affix position={{ top: 20, right: 20 }}>
+          <Transition
+            mounted={showAlert}
+            transition="slide-left"
+            duration={400}
+            timingFunction="ease"
+          >
+          {(styles) => <div style={styles}>
+          <Notification title="Appointment Update for Patient xxxxx" onClick={() => {setShowAlert(false);}}>
+            Patient Appointment ....
+          </Notification>
+            </div>}
+    </Transition>
+
+        </Affix>
         {/* <Container my="xl"> */}
         {active && 
       <Container fluid my="md">
@@ -91,6 +125,7 @@ export default function Sandbox() {
         }
         {/* </Container> */}
       </AppShell.Main>
+
     </AppShell>
   );
 }

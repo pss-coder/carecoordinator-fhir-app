@@ -3,6 +3,7 @@ import { FetchFhirClient } from "@bonfhir/core/r4b";
 import { fhirSubscriptions } from "@bonfhir/next/r4b/server";
 import { arrivedAppointments } from "./subscriptions/arrived-appointments";
 
+
 export const config = {
   matcher: ["/api/fhir/subscriptions/:subscription*"],
 };

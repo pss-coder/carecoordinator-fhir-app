@@ -1,6 +1,6 @@
 const express = require('express');
 const next = require('next');
-const axios = require('axios');
+// const axios = require('axios');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -17,7 +17,7 @@ app.prepare().then(async () => {
     io.on('connection', (socket) => {
         console.log('Client connected');
 
-        socket.on('message1', (data) => {
+        socket.on('appointment', (data) => {
             console.log('Recieved from API ::', data)
             io.emit('message2', data);
         })

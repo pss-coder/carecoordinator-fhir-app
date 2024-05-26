@@ -1,6 +1,6 @@
 "use client";
 // import "@mantine/code-highlight/styles.css";
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, MantineProvider, Notification } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { PropsWithChildren } from "react";
 
@@ -26,7 +26,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <ColorSchemeScript forceColorScheme="light" />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          {children}
+        </MantineProvider>
+        
       </body>
     </html>
   );
