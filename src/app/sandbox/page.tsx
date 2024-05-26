@@ -1,20 +1,59 @@
 "use client";
 
-import { Hero } from '@/components/Hero/Hero';
-import { Navbar } from '@/components/Navbar/Navbar';
-import PatientsTable from '@/components/PatientsTable/PatientsTable';
-import { AppShell, Burger, Container, Grid, Paper, SimpleGrid, Skeleton, Stack, Title, rem } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-
+import { Navbar } from "@/components/Navbar/Navbar";
+import { useFhirSearch } from "@bonfhir/query/r4b";
+import { FhirValue } from "@bonfhir/react/r4b";
+import {
+  AppShell,
+  Burger,
+  Container,
+  Grid,
+  Group,
+  Notification,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+  rem,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { act, useState } from "react";
+import classes from "./page.module.css";
+import { PatientGeneral } from "@/components/PatientGeneral/PatientGeneral";
+import PatientReportsTable from "@/components/PatientsTable/PatientsReportTable";
+import { PatientUpdateCard } from "@/components/PatientUpdateCard/PatientUpdateCard";
 
 const PRIMARY_COL_HEIGHT = rem(500);
-
-
 
 export default function Sandbox() {
   const [opened, { toggle }] = useDisclosure();
 
-  const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
+  const patientsSearchQuery = useFhirSearch("Patient");
+
+  const [active, setActive] = useState("")
+
+  const patientLinks = patientsSearchQuery.data
+    ?.searchMatch()
+    .map((patient) => (
+      <a
+        href="#"
+        data-active={patient.id === active || undefined}
+        onClick={(event) =>{ event.preventDefault(); setActive(patient.id); console.log(patient.id)}}
+        key={patient.id}
+        className={classes.patientLinks}
+      >
+        <span style={{ marginRight: rem(9), fontSize: rem(16) }}>
+          {
+            <FhirValue
+              className={classes.patientLink}
+              type="HumanName"
+              value={patient.name}
+            />
+          }
+        </span>{" "}
+      </a>
+    ));
 
 
   return (
@@ -22,52 +61,35 @@ export default function Sandbox() {
       header={{ height: 50 }}
       navbar={{
         width: 320,
-        breakpoint: 'sm',
+        breakpoint: "sm",
         collapsed: { mobile: !opened },
       }}
       padding="md"
     >
       <AppShell.Header>
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          hiddenFrom="sm"
-          size="sm"
-        />
+        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <Navbar />
+        <Navbar patientLinks={patientLinks} />
       </AppShell.Navbar>
 
       <AppShell.Main>
-        
-      <Container fluid my="xl">
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-        {/* <Skeleton height={PRIMARY_COL_HEIGHT} radius="md" animate={false} /> */}
-        <Stack>
-          <Paper withBorder shadow='sm' radius={15} p={10}>
-            <Title>Patient List</Title>
-            <PatientsTable />
-          </Paper>
-          
-        </Stack>
-        
-        {/* <Grid gutter="md">
-          <Grid.Col>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
-          </Grid.Col>
-        </Grid> */}
-      </SimpleGrid>
+        {/* <Container my="xl"> */}
+        {active && 
+      <Container fluid my="md">
+      <Grid>
+        <Grid.Col span={{ base: 12, xs: 8 }}> <PatientGeneral patientID={active} /></Grid.Col>
+        <Grid.Col span={{ base: 12, xs: 4 }}><PatientUpdateCard /></Grid.Col>
+        <Grid.Col span={{ base: 12, xs: 8 }}><PatientReportsTable patientId={active} /></Grid.Col>
+        {/* <Grid.Col span={{ base: 12, xs: 4 }}>{child}</Grid.Col>
+        <Grid.Col span={{ base: 12, xs: 3 }}>{child}</Grid.Col>
+        <Grid.Col span={{ base: 12, xs: 3 }}>{child}</Grid.Col>
+        <Grid.Col span={{ base: 12, xs: 6 }}>{child}</Grid.Col> */}
+      </Grid>
     </Container>
-
-    
+        }
+        {/* </Container> */}
       </AppShell.Main>
     </AppShell>
   );

@@ -1,29 +1,36 @@
-import { Title, SimpleGrid, Text, Button, ThemeIcon, Grid, rem, Container } from '@mantine/core';
-import { IconReceiptOff, IconFlame, IconCircleDotted, IconFileCode } from '@tabler/icons-react';
-import classes from './LogoCloud.module.css';
+import { Container, SimpleGrid, Text, ThemeIcon, rem } from "@mantine/core";
+import {
+  IconCircleDotted,
+  IconFileCode,
+  IconFlame,
+  IconReceiptOff,
+} from "@tabler/icons-react";
+import classes from "./LogoCloud.module.css";
 
 const features = [
   {
     icon: IconReceiptOff,
-    title: 'Free and open source',
-    description: 'All packages are published under MIT license, you can use Mantine in any project',
+    title: "Free and open source",
+    description:
+      "All packages are published under MIT license, you can use Mantine in any project",
   },
   {
     icon: IconFileCode,
-    title: 'TypeScript based',
-    description: 'Build type safe applications, all components and hooks export types',
+    title: "TypeScript based",
+    description:
+      "Build type safe applications, all components and hooks export types",
   },
   {
     icon: IconCircleDotted,
-    title: 'No annoying focus ring',
+    title: "No annoying focus ring",
     description:
-      'With new :focus-visible selector focus ring will appear only when user navigates with keyboard',
+      "With new :focus-visible selector focus ring will appear only when user navigates with keyboard",
   },
   {
     icon: IconFlame,
-    title: 'Flexible',
+    title: "Flexible",
     description:
-      'Customize colors, spacing, shadows, fonts and many other settings with global theme object',
+      "Customize colors, spacing, shadows, fonts and many other settings with global theme object",
   },
 ];
 
@@ -34,9 +41,12 @@ export function LogoCloud() {
         size={44}
         radius="md"
         variant="gradient"
-        gradient={{ deg: 133, from: 'blue', to: 'cyan' }}
+        gradient={{ deg: 133, from: "blue", to: "cyan" }}
       >
-        <feature.icon style={{ width: rem(26), height: rem(26) }} stroke={1.5} />
+        <feature.icon
+          style={{ width: rem(26), height: rem(26) }}
+          stroke={1.5}
+        />
       </ThemeIcon>
       <Text fz="lg" mt="sm" fw={500}>
         {feature.title}
@@ -49,8 +59,7 @@ export function LogoCloud() {
 
   return (
     <Container fluid className={classes.wrapper}>
-      
-        {/* <Grid.Col span={{ base: 12, md: 5 }}>
+      {/* <Grid.Col span={{ base: 12, md: 5 }}>
           <Title className={classes.title} order={2}>
             A fully featured React components library for your next project
           </Title>
@@ -69,11 +78,10 @@ export function LogoCloud() {
             Get started
           </Button>
         </Grid.Col> */}
-       
-          <SimpleGrid cols={{ base: 1, md: 4 }} spacing={30}>
-            {items}
-          </SimpleGrid>
-      
+
+      <SimpleGrid cols={{ base: 1, md: 4 }} spacing={30}>
+        {items}
+      </SimpleGrid>
     </Container>
   );
 }

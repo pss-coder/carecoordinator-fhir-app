@@ -1,76 +1,76 @@
-'use client'
+"use client";
 
 import {
-  HoverCard,
-  Group,
-  Button,
-  UnstyledButton,
-  Text,
-  SimpleGrid,
-  ThemeIcon,
   Anchor,
-  Divider,
-  Center,
   Box,
   Burger,
-  Drawer,
+  Button,
+  Center,
   Collapse,
+  Divider,
+  Drawer,
+  Group,
+  HoverCard,
+  Image,
   ScrollArea,
+  SimpleGrid,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
   rem,
   useMantineTheme,
-  Title,
-  Image,
-} from '@mantine/core';
+} from "@mantine/core";
 // import { MantineLogo } from '@mantinex/mantine-logo';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure } from "@mantine/hooks";
 import {
-  IconNotification,
-  IconCode,
   IconBook,
   IconChartPie3,
-  IconFingerprint,
-  IconCoin,
   IconChevronDown,
-} from '@tabler/icons-react';
-import classes from './Header.module.css';
-import NextImage from 'next/image';
-import icon from '../../../public/favicon.svg'
+  IconCode,
+  IconCoin,
+  IconFingerprint,
+  IconNotification,
+} from "@tabler/icons-react";
+import NextImage from "next/image";
+import icon from "../../../public/favicon.svg";
+import classes from "./Header.module.css";
 
 const mockdata = [
   {
     icon: IconCode,
-    title: 'Open source',
-    description: 'This Pokémon’s cry is very loud and distracting',
+    title: "Open source",
+    description: "This Pokémon’s cry is very loud and distracting",
   },
   {
     icon: IconCoin,
-    title: 'Free for everyone',
-    description: 'The fluid of Smeargle’s tail secretions changes',
+    title: "Free for everyone",
+    description: "The fluid of Smeargle’s tail secretions changes",
   },
   {
     icon: IconBook,
-    title: 'Documentation',
-    description: 'Yanma is capable of seeing 360 degrees without',
+    title: "Documentation",
+    description: "Yanma is capable of seeing 360 degrees without",
   },
   {
     icon: IconFingerprint,
-    title: 'Security',
-    description: 'The shell’s rounded shape and the grooves on its.',
+    title: "Security",
+    description: "The shell’s rounded shape and the grooves on its.",
   },
   {
     icon: IconChartPie3,
-    title: 'Analytics',
-    description: 'This Pokémon uses its flying ability to quickly chase',
+    title: "Analytics",
+    description: "This Pokémon uses its flying ability to quickly chase",
   },
   {
     icon: IconNotification,
-    title: 'Notifications',
-    description: 'Combusken battles with the intensely hot flames it spews',
+    title: "Notifications",
+    description: "Combusken battles with the intensely hot flames it spews",
   },
 ];
 
 export function Header() {
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
 
@@ -78,7 +78,10 @@ export function Header() {
     <UnstyledButton className={classes.subLink} key={item.title}>
       <Group wrap="nowrap" align="flex-start">
         <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon style={{ width: rem(22), height: rem(22) }} color={theme.colors.blue[6]} />
+          <item.icon
+            style={{ width: rem(22), height: rem(22) }}
+            color={theme.colors.blue[6]}
+          />
         </ThemeIcon>
         <div>
           <Text size="sm" fw={500}>
@@ -97,13 +100,25 @@ export function Header() {
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           {/* <MantineLogo size={30} /> */}
-          <Image component={NextImage} w={30} h={30} alt='app icon'  src={icon}/> 
+          <Image
+            component={NextImage}
+            w={30}
+            h={30}
+            alt="app icon"
+            src={icon}
+          />
 
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="#" className={classes.link}>
               Home
             </a>
-            <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+            <HoverCard
+              width={600}
+              position="bottom"
+              radius="md"
+              shadow="md"
+              withinPortal
+            >
               <HoverCard.Target>
                 <a href="#" className={classes.link}>
                   <Center inline>
@@ -118,7 +133,7 @@ export function Header() {
                 </a>
               </HoverCard.Target>
 
-              <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
+              <HoverCard.Dropdown style={{ overflow: "hidden" }}>
                 <Group justify="space-between" px="md">
                   <Text fw={500}>Features</Text>
                   <Anchor href="#" fz="xs">
@@ -160,7 +175,11 @@ export function Header() {
             <Button>Sign up</Button>
           </Group>
 
-          <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            hiddenFrom="sm"
+          />
         </Group>
       </header>
 

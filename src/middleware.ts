@@ -8,7 +8,8 @@ export const config = {
 };
 
 export const middleware = fhirSubscriptions({
-  fhirClient: () => new FetchFhirClient({
+  fhirClient: () =>
+    new FetchFhirClient({
       baseUrl: Config.public.fhirUrl,
       auth: {
         tokenUrl: Config.server.authTokenUrl,

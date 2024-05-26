@@ -1,70 +1,70 @@
 import {
-    Appointment,
-    Practitioner,
-    Reference,
-    build,
-    findReference,
-    isReferenceOf,
-    reference,
-  } from "@bonfhir/core/r4b";
-  import { FhirSubscription } from "@bonfhir/subscriptions/r4b";
-  
-  export const arrivedAppointments: FhirSubscription<Appointment> = {
-    criteria: "Appointment?status=arrived",
-    reason: "Create encounters for arrived appointments",
-    endpoint: "arrived-appointments",
+  Appointment,
+  Practitioner,
+  Reference,
+  build,
+  findReference,
+  isReferenceOf,
+  reference,
+} from "@bonfhir/core/r4b";
+import { FhirSubscription } from "@bonfhir/subscriptions/r4b";
 
-    async handler({ fhirClient, resource: appointment, logger }) {
-      // This is just a precaution
-      if (!appointment || appointment.status !== "arrived") return;
+export const arrivedAppointments: FhirSubscription<Appointment> = {
+  criteria: "Appointment?status=arrived",
+  reason: "Create encounters for arrived appointments",
+  endpoint: "arrived-appointments",
 
-      console.log(appointment.identifier)
-    
-      console.log("calling api")
+  async handler({ fhirClient, resource: appointment, logger }) {
+    // This is just a precaution
+    if (!appointment || appointment.status !== "arrived") return;
 
-      // call API here?
-        // pass patient id, here
-      await fetch('http://localhost:3000/api')
-        .then((response) => response.text())
-        .then((body) => {
-            console.log(body);
-        })
-        .catch((error) => console.log(error));
-  
-      // Check if the appointment already has an encounter associated
-      const existingEncounters = await fhirClient.search("Encounter", (search) =>
-        search.appointment(appointment),
-      );
-      if (existingEncounters.searchMatch().length > 0) return;
-  
-      // Create the new encounter
-      // Note that we're using the build function from @bonfhir/core to create the encounter.
-      // We reference the appointment, and copy the appointment's subject and participants as well.
-      const newEncounter = build("Encounter", {
-        status: "arrived",
-        class: {
-          system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-          code: "AMB",
-          display: "ambulatory",
-        },
-        appointment: [reference(appointment)],
-        subject: findReference(
-          appointment.participant.map((p) => p.actor),
-          "Patient",
-        ),
-        participant: appointment.participant
-          .filter((participant) =>
-            isReferenceOf(participant.actor, "Practitioner"),
-          )
-          .map((participant) => ({
-            individual: participant.actor as Reference<Practitioner>,
-            type: participant.type,
-          })),
-      });
-  
-      // save new encounter to server
-      const result = await fhirClient.save(newEncounter);
-  
-      logger?.info("Created encounter", result);
-    },
-  };
+    console.log(appointment.identifier);
+
+    console.log("calling api");
+
+    // call API here?
+    // pass patient id, here
+    await fetch("http://localhost:3000/api")
+      .then((response) => response.text())
+      .then((body) => {
+        console.log(body);
+      })
+      .catch((error) => console.log(error));
+
+    // Check if the appointment already has an encounter associated
+    const existingEncounters = await fhirClient.search("Encounter", (search) =>
+      search.appointment(appointment),
+    );
+    if (existingEncounters.searchMatch().length > 0) return;
+
+    // Create the new encounter
+    // Note that we're using the build function from @bonfhir/core to create the encounter.
+    // We reference the appointment, and copy the appointment's subject and participants as well.
+    const newEncounter = build("Encounter", {
+      status: "arrived",
+      class: {
+        system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        code: "AMB",
+        display: "ambulatory",
+      },
+      appointment: [reference(appointment)],
+      subject: findReference(
+        appointment.participant.map((p) => p.actor),
+        "Patient",
+      ),
+      participant: appointment.participant
+        .filter((participant) =>
+          isReferenceOf(participant.actor, "Practitioner"),
+        )
+        .map((participant) => ({
+          individual: participant.actor as Reference<Practitioner>,
+          type: participant.type,
+        })),
+    });
+
+    // save new encounter to server
+    const result = await fhirClient.save(newEncounter);
+
+    logger?.info("Created encounter", result);
+  },
+};
