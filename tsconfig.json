@@ -34,7 +34,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/markdoc/nodes.js"  ],
   "exclude": [
     "node_modules"
   ]

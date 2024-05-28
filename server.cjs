@@ -17,10 +17,19 @@ app.prepare().then(async () => {
     io.on('connection', (socket) => {
         console.log('Client connected');
 
-        socket.on('appointment', (data) => {
-            console.log('Recieved from API ::', data)
-            io.emit('message2', data);
+        
+        socket.on('receivingAppt', (data) => {
+            console.log('Recieved appointment update from API ::', data)
+                // emit to clients: clientSendAppt
+                io.emit('clientSendAppt', data);
         })
+
+        socket.on('receivingUpdate', (data) => {
+            console.log('Recieved patient update from API ::', data)
+            // emit: clientSendUpdate
+            io.emit('clientSendUpdate', data);
+        })
+
     });
 
     server.all('*', (req, res) => {

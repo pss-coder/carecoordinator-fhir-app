@@ -25,7 +25,7 @@ import { useState } from "react";
 const links = [
   { icon: IconBulb, label: "Activity", notifications: 3 },
   { icon: IconCheckbox, label: "Tasks", notifications: 4 },
-  { icon: IconUser, label: "Contacts" },
+  { icon: IconUser, label: "My Care Team" },
 ];
 
 const collections = [
@@ -107,14 +107,14 @@ export function Navbar({patientLinks}) {
           <Text size="xs" fw={500} c="dimmed">
             My Patients
           </Text>
-          <Tooltip label="Create collection" withArrow position="right">
+          {/* <Tooltip label="Create collection" withArrow position="right">
             <ActionIcon variant="default" size={18}>
               <IconPlus
                 style={{ width: rem(12), height: rem(12) }}
                 stroke={1.5}
               />
             </ActionIcon>
-          </Tooltip>
+          </Tooltip> */}
         </Group>
         <div className={classes.collections}>{patientLinks}</div>
       </div>

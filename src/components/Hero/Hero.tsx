@@ -1,4 +1,4 @@
-import image from "@/image/image.png";
+import image from "@/images/image.png";
 import {
   Button,
   Container,

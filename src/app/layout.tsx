@@ -1,6 +1,6 @@
 "use client";
 // import "@mantine/code-highlight/styles.css";
-import { ColorSchemeScript, MantineProvider, Notification } from "@mantine/core";
+import { ColorSchemeScript, MantineProvider, Notification, createTheme, em } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { PropsWithChildren } from "react";
 
@@ -8,7 +8,15 @@ import { PropsWithChildren } from "react";
  * Customize Mantine Theme.
  * https://mantine.dev/theming/theme-object/
  */
-// const theme = createTheme({});
+const theme = createTheme({
+  // breakpoints: {
+  //       xs: '36em',
+  //       sm: '48em',
+  //       md: '62em',
+  //       lg: '75em',
+  //       xl: '88em',
+  // }
+});
 
 export default function RootLayout({ children }: PropsWithChildren) {
   // const router = useRouter();
@@ -26,7 +34,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <ColorSchemeScript forceColorScheme="light" />
       </head>
       <body>
-        <MantineProvider>
+        <MantineProvider theme={theme} deduplicateCssVariables={false}>
           {children}
         </MantineProvider>
         

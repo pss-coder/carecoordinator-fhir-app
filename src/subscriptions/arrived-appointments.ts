@@ -22,22 +22,29 @@ export const arrivedAppointments: FhirSubscription<Appointment> = {
     // This is just a precaution
     if (!appointment || appointment.status !== "arrived") return;
 
-    //console.log(appointment.identifier); // Get patient ID from appointment identifier
+    // console.log(appointment.identifier); // Get patient ID from appointment identifier
 
-    console.log("calling socket emit api: ");
+    const patientID = appointment.identifier[0].value
+    console.log(patientID)
 
     // call API here?
     // pass patient id, here
-    await fetch("http://localhost:3000/api", {
-      method: "POST"
-    })
-      .then((response) => response.text())
-      .then((body) => {
-        console.log(body);
-      })
-      .catch((error) => console.log(error));
+    // await fetch("http://localhost:3000/api", {
+    //   method: "POST"
+    // })
+    //   .then((response) => response.text())
+    //   .then((body) => {
+    //     console.log(body);
+    //   })
+    //   .catch((error) => console.log(error));
 
-      await fetch("http://localhost:3000/api", {
+    const query = new URLSearchParams({
+      id: patientID ? appointment.identifier[0].value : "" ,
+      type: 'appointment',
+    });
+     
+
+      await fetch(`http://localhost:3000/api/notification?${query.toString()}`, {
       method: "GET"
     })
       .then((response) => response.text())
