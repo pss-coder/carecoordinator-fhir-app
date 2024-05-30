@@ -1,4 +1,6 @@
 # FHIR Web App Setup
+<img width="1469" alt="Screenshot 2024-05-30 at 3 24 33 PM" src="https://github.com/pss-coder/carecoordinator-fhir-app/assets/22881285/5f8b0966-e6e2-4771-9f47-70d8f6cceb79">
+
 
 ## Introduction
 
