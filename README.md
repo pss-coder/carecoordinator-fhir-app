@@ -35,8 +35,8 @@ npm run fhir:add-sample-data
 ```
 
 ### 5. Access the Server Data
-The server data can be accessed via: http://localhost:8080
-For development purposes, you can use the following credentials:
+The server data can be accessed via: http://localhost:8100
+For development purposes (for both client and server), you can use the following credentials:
 Email: admin@example.com
 Password: medplum_admin
 
