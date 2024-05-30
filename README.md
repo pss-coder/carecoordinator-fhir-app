@@ -41,6 +41,9 @@ Email: admin@example.com
 Password: medplum_admin
 
 ### 6. Run Web app
+```sh
+npm run dev
+```
 The server data SHOULD only be accessed via: http://localhost:3000
 
 ### Integration with Telegram Bot
