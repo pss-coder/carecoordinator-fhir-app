@@ -5,9 +5,6 @@ import io from 'socket.io-client';
 
 export async function GET() {
   // console.log("GET API CCALLED")
-  
-  // const BOT_TOKEN = "7174167825:AAHJ4TergSi7IFkZRkeHJx1_Iw9mMr4Jztc";
-  // const CHAT_ID = "@ocp_testt";
   // const MESSAGE = "Hello, appointment is sent!";
 
   // // Telegram API endpoint
