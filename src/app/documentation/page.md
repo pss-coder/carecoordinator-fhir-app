@@ -2,7 +2,7 @@
 title: Getting started
 ---
 
-Learn how to get CacheAdvance set up in your project in under thirty minutes or it's free. {% .lead %}
+Learn how to get Care Coordinator set up in your Care Team in under thirty minutes. {% .lead %}
 
 {% quick-links %}
 

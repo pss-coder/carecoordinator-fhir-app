@@ -41,6 +41,8 @@ export const arrivedAppointments: FhirSubscription<Appointment> = {
     const query = new URLSearchParams({
       id: patientID ? appointment.identifier[0].value : "" ,
       type: 'appointment',
+      start: appointment.start,
+      end: appointment.end
     });
      
 

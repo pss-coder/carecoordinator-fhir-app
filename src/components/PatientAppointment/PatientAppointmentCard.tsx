@@ -15,7 +15,7 @@ export default function PatientAppointmentCard({patientID}) {
     const createAppointmentMutation = useFhirCreateMutation("Appointment", {
       mutation: {
         onSuccess: (appointment) => {
-          alert("Appointment Created")
+          // alert("Appointment Created")
         },
         onError: (error) => {
           console.log(error)

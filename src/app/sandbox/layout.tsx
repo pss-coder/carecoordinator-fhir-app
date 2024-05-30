@@ -1,17 +1,29 @@
 "use client";
+
 import { Config } from "@/config";
 import { FetchFhirClient, FhirClient } from "@bonfhir/core/r4b";
 import { MantineRenderer } from "@bonfhir/mantine/r4b";
 import { FhirQueryProvider } from "@bonfhir/query/r4b";
 import { FhirUIProvider } from "@bonfhir/react/r4b";
-import "@mantine/code-highlight/styles.css";
-import { AppShell, Center, Loader, MantineProvider } from "@mantine/core";
+
+import { AppShell, Center, Loader, MantineProvider, createTheme } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/tiptap/styles.css";
+import "@mantine/code-highlight/styles.css";
 import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { PropsWithChildren, useEffect, useState } from "react";
+
+const theme = createTheme({
+  // breakpoints: {
+  //       xs: '36em',
+  //       sm: '48em',
+  //       md: '62em',
+  //       lg: '75em',
+  //       xl: '88em',
+  // }
+});
 
 export default function SandboxLayout({ children }: PropsWithChildren) {
   const router = useRouter();
@@ -28,7 +40,7 @@ export default function SandboxLayout({ children }: PropsWithChildren) {
         {/* <ColorSchemeScript forceColorScheme="light" /> */}
       </head>
       <body>
-        <MantineProvider>
+      <MantineProvider theme={theme} deduplicateCssVariables={false}>
           <SessionProvider>
             <WithAuth>
               <FhirUIProvider

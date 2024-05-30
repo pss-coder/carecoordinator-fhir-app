@@ -30,6 +30,13 @@ app.prepare().then(async () => {
             io.emit('clientSendUpdate', data);
         })
 
+        socket.on('receivingConsent', (data) => {
+            console.log('Recieved consent form image from bot ::', data)
+            io.emit('clientSendPhoto', data);
+        })
+
+        //
+
     });
 
     server.all('*', (req, res) => {

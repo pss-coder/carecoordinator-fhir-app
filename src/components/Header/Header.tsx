@@ -123,7 +123,7 @@ export function Header() {
                 <a href="#" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      Features
+                      Documentation
                     </Box>
                     <IconChevronDown
                       style={{ width: rem(16), height: rem(16) }}
@@ -163,16 +163,16 @@ export function Header() {
               </HoverCard.Dropdown>
             </HoverCard>
             <a href="#" className={classes.link}>
-              Learn
+              Roadmap
             </a>
             <a href="#" className={classes.link}>
-              Academy
+              MOHT
             </a>
           </Group>
 
           <Group visibleFrom="sm">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            <Button variant="default">Try Sandbox</Button>
+            <Button>Contact Us</Button>
           </Group>
 
           <Burger
@@ -201,7 +201,7 @@ export function Header() {
           <UnstyledButton className={classes.link} onClick={toggleLinks}>
             <Center inline>
               <Box component="span" mr={5}>
-                Features
+                Documentation
               </Box>
               <IconChevronDown
                 style={{ width: rem(16), height: rem(16) }}
@@ -211,17 +211,17 @@ export function Header() {
           </UnstyledButton>
           <Collapse in={linksOpened}>{links}</Collapse>
           <a href="#" className={classes.link}>
-            Learn
+            Roadmap
           </a>
           <a href="#" className={classes.link}>
-            Academy
+          MOHT
           </a>
 
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            <Button variant="default">Try Sandbox</Button>
+            <Button>Contact Us</Button>
           </Group>
         </ScrollArea>
       </Drawer>

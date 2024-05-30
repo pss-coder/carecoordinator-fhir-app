@@ -15,7 +15,7 @@ import classes from "./Hero.module.css";
 export function Hero() {
   return (
     <div className={classes.wrapper}>
-      <Container fluid size={1500} className={classes.inner}>
+      <Container pb={0} fluid size={1500} className={classes.inner}>
         <Grid gutter="xl">
           <Grid.Col className={classes.left} span={{ base: 12, md: 7, lg: 7 }}>
             <Group mb={20}>
@@ -75,7 +75,7 @@ export function Hero() {
                 // leftSection={<GithubIcon size={20} />}
                 rightSection={<IconChevronRight size={20} />}
               >
-                GitHub
+                Contact Us
               </Button>
             </Group>
           </Grid.Col>

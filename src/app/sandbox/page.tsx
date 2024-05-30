@@ -34,6 +34,7 @@ import io from 'socket.io-client';
 import { PatientProfile } from "@/components/PatientProfile/PatientProfile";
 import PatientAppointmentCard from "@/components/PatientAppointment/PatientAppointmentCard";
 import { Communication, asError, build } from "@bonfhir/core/r4b";
+import { search } from "@/markdoc/search.mjs";
 
 // const socket = io('http://localhost:3000');
 
@@ -69,6 +70,15 @@ export default function Sandbox() {
 
   const socket = useSocket('http://localhost:3000')
 
+  const [imgsURL, setImgURL] = useState([
+    {
+      url: "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
+    },
+    {
+
+    }
+  ]);
+
   useEffect(() => {
 
     if (socket) {
@@ -82,6 +92,13 @@ export default function Sandbox() {
         console.log("Recieved patient updates from server ::", data)
         setShowAlert({isDisplay: true, id: data.id, type: "Patient Progress Update"});
       })
+
+      socket.on('clientSendPhoto', (data) => {
+        console.log("Recieved patient consent form from server ::", data)
+        // TODO: update Image view - simple one would do! 
+        setImgURL(imgUrl => [...imgUrl, {url: data.img_url}])
+      })
+
     }
   }, [socket])
 
@@ -103,7 +120,10 @@ export default function Sandbox() {
     };
 
     // Get Communication about Patient
-    const communicationSearchQuery = useFhirSearch("Communication");
+    const communicationSearchQuery = useFhirSearch("Communication", (search) => 
+      search
+      ._sort("-_lastUpdated")
+    );
 
     const createCommunicationMutation = useFhirCreateMutation("Communication", {
       mutation: {
@@ -112,6 +132,7 @@ export default function Sandbox() {
           const query = new URLSearchParams({
             id: patientId ,
             type: 'update',
+            note: note
           });
            
             await fetch(`http://localhost:3000/api/notification?${query.toString()}`, {
@@ -164,7 +185,8 @@ export default function Sandbox() {
             })
         }
     })
-    if (communications.length != 0) { return communications.reverse()[0].note[0] }
+    if (communications.length != 0) { return communications[0].note[0] }
+    
     return {text: "add latest progress"}
     }
 
@@ -272,6 +294,23 @@ export default function Sandbox() {
 
         </Affix>
         {/* <Container my="xl"> */}
+          {/* <CardsCarousel /> */}
+          <Group>
+            {imgsURL.map(image => (
+              <>
+                  <Image
+              alt="consent form"
+              height={100}
+              w={100}
+          radius="md"
+          src={image.url}
+        />
+              </>
+            ))}
+          </Group>
+          
+    
+
         {active && 
       <Container fluid my="md">
       <Grid>

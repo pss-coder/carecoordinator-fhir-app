@@ -93,7 +93,7 @@ export function Navbar({patientLinks}) {
   ));
 
   return (
-    <nav className={classes.navbar}>
+    <nav  className={classes.navbar}>
       <div className={classes.section}>
         <UserButton />
       </div>

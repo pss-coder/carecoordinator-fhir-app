@@ -1,4 +1,4 @@
-import { Container, SimpleGrid, Text, ThemeIcon, rem } from "@mantine/core";
+import { Center, Container, Grid, SimpleGrid, Text, ThemeIcon, rem } from "@mantine/core";
 import {
   IconCircleDotted,
   IconFileCode,
@@ -36,29 +36,30 @@ const features = [
 
 export function LogoCloud() {
   const items = features.map((feature) => (
-    <div key={feature.title}>
+    <Grid.Col span="auto" key={feature.title}>
       <ThemeIcon
-        size={44}
+        w={80}
+        h={60}
         radius="md"
-        variant="gradient"
-        gradient={{ deg: 133, from: "blue", to: "cyan" }}
+        // variant="gradient"
+        gradient={{ deg: 133, from: "blue", to: "blue" }}
       >
         <feature.icon
-          style={{ width: rem(26), height: rem(26) }}
+          style={{ width: rem(35), height: rem(35) }}
           stroke={1.5}
         />
       </ThemeIcon>
-      <Text fz="lg" mt="sm" fw={500}>
+      {/* <Text fz="lg" mt="sm" fw={500}>
         {feature.title}
       </Text>
       <Text c="dimmed" fz="sm">
         {feature.description}
-      </Text>
-    </div>
+      </Text> */}
+    </Grid.Col>
   ));
 
   return (
-    <Container fluid className={classes.wrapper}>
+    <Container className={classes.wrapper}>
       {/* <Grid.Col span={{ base: 12, md: 5 }}>
           <Title className={classes.title} order={2}>
             A fully featured React components library for your next project
@@ -79,9 +80,10 @@ export function LogoCloud() {
           </Button>
         </Grid.Col> */}
 
-      <SimpleGrid cols={{ base: 1, md: 4 }} spacing={30}>
+      <Grid justify="center" align="center">
         {items}
-      </SimpleGrid>
+        {/* {items} */}
+      </Grid>
     </Container>
   );
 }
